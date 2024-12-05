@@ -1,7 +1,7 @@
 
 # Tool Calling System
 
-This repository contains a tool calling system that integrates various tools for date calculations, mathematical expression evaluations, and text processing. The system uses a chat-based interface to determine the appropriate tool to use based on user prompts.
+This repository contains a tool calling system that integrates various tools for date calculations, mathematical expression evaluations, and text processing into LLM (Large Language Model) based chatbots.
 
 ## Project Structure
 
