@@ -110,3 +110,111 @@
 **DEBUG**: Final results: [30.0]
 
 
+## 2025-04-24 09:11:59,577
+**INFO**: ChatManager initialized with model: llama3.2
+
+
+## 2025-04-24 09:12:00,450
+**INFO**: ChatManager initialized with model: llama3.2
+
+
+## 2025-04-24 09:13:31,622
+**DEBUG**: Tool detection result: text
+
+
+## 2025-04-24 09:13:31,622
+**DEBUG**: Sending prompt with tools: Count the words in this text.
+
+
+## 2025-04-24 09:13:32,145
+**DEBUG**: Tool response: role='assistant' content='' images=None tool_calls=[ToolCall(function=Function(name='count_words', arguments={'text': 'this text'}))]
+
+
+## 2025-04-24 09:13:32,145
+**DEBUG**: Processing tool calls: [ToolCall(function=Function(name='count_words', arguments={'text': 'this text'}))]
+
+
+## 2025-04-24 09:13:32,145
+**DEBUG**: Processing tool: count_words
+
+
+## 2025-04-24 09:13:32,145
+**DEBUG**: Tool arguments: {'text': 'this text'}
+
+
+## 2025-04-24 09:13:32,145
+**DEBUG**: Tool execution result: 2
+
+
+## 2025-04-24 09:13:32,145
+**DEBUG**: Final results: [2]
+
+
+## 2025-04-24 09:13:42,948
+**DEBUG**: Tool detection result: text
+
+
+## 2025-04-24 09:13:42,948
+**DEBUG**: Sending prompt with tools: Count the words in this text.
+
+
+## 2025-04-24 09:13:43,530
+**DEBUG**: Tool response: role='assistant' content='' images=None tool_calls=[ToolCall(function=Function(name='count_words', arguments={'text': 'this is a sample text to count the words'}))]
+
+
+## 2025-04-24 09:13:43,531
+**DEBUG**: Processing tool calls: [ToolCall(function=Function(name='count_words', arguments={'text': 'this is a sample text to count the words'}))]
+
+
+## 2025-04-24 09:13:43,531
+**DEBUG**: Processing tool: count_words
+
+
+## 2025-04-24 09:13:43,531
+**DEBUG**: Tool arguments: {'text': 'this is a sample text to count the words'}
+
+
+## 2025-04-24 09:13:43,531
+**DEBUG**: Tool execution result: 9
+
+
+## 2025-04-24 09:13:43,531
+**DEBUG**: Final results: [9]
+
+
+## 2025-04-24 09:13:51,947
+**DEBUG**: Tool detection result: text
+
+
+## 2025-04-24 09:13:51,947
+**DEBUG**: Sending prompt with tools: Count the words in this text.
+
+
+## 2025-04-24 09:13:52,528
+**DEBUG**: Tool response: role='assistant' content='' images=None tool_calls=[ToolCall(function=Function(name='count_words', arguments={'text': 'this is a sample text for counting words'}))]
+
+
+## 2025-04-24 09:13:52,528
+**DEBUG**: Processing tool calls: [ToolCall(function=Function(name='count_words', arguments={'text': 'this is a sample text for counting words'}))]
+
+
+## 2025-04-24 09:13:52,528
+**DEBUG**: Processing tool: count_words
+
+
+## 2025-04-24 09:13:52,528
+**DEBUG**: Tool arguments: {'text': 'this is a sample text for counting words'}
+
+
+## 2025-04-24 09:13:52,528
+**DEBUG**: Tool execution result: 8
+
+
+## 2025-04-24 09:13:52,528
+**DEBUG**: Final results: [8]
+
+
+## 2025-04-24 09:14:40,448
+**INFO**: ChatManager initialized with model: llama3.2
+
+

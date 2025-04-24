@@ -2,7 +2,7 @@
 
 # Model configuration
 DEFAULT_MODEL = "llama3.2"
-FALLBACK_MODEL = "llama2"
+FALLBACK_MODEL = "llama3.2"
 
 # Logging configuration
 LOG_FILE = "log.md"
