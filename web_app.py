@@ -26,8 +26,10 @@ HTML_TEMPLATE = """
             padding: 20px;
             line-height: 1.6;
         }
-        h1 {
+        h1, h2, h3 {
             color: #333;
+        }
+        h1 {
             text-align: center;
         }
         .container {
@@ -67,9 +69,35 @@ HTML_TEMPLATE = """
             padding: 15px;
             background-color: #f9f9f9;
             border-radius: 4px;
-            min-height: 100px;
+            min-height: 50px;
         }
-        .tools-list {
+        .tools-used {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+            display: none;
+        }
+        .tool-usage {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #e6f2ff;
+            border-radius: 4px;
+            border-left: 4px solid #0066cc;
+        }
+        .tool-usage h3 {
+            margin-top: 0;
+            color: #0066cc;
+        }
+        .tool-args, .tool-result {
+            margin-top: 5px;
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 8px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+        .available-tools {
             margin-top: 30px;
         }
         .tool {
@@ -81,6 +109,29 @@ HTML_TEMPLATE = """
         .tool-name {
             font-weight: bold;
         }
+        .collapsible {
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            background-color: #f1f1f1;
+            margin-top: 20px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        .active, .collapsible:hover {
+            background-color: #e0e0e0;
+        }
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #f9f9f9;
+            border-radius: 0 0 4px 4px;
+        }
     </style>
 </head>
 <body>
@@ -89,31 +140,54 @@ HTML_TEMPLATE = """
     <div class="container">
         <div class="input-group">
             <label for="prompt">Enter your prompt:</label>
-            <input type="text" id="prompt" placeholder="e.g., What is 25 * 16?" autofocus>
+            <input type="text" id="prompt" placeholder="e.g., What is 25 * 16? or What date will it be 45 days from today?" autofocus>
         </div>
         <button id="submit-btn">Submit</button>
         
         <div class="response" id="response">
             <p>Response will appear here...</p>
         </div>
+        
+        <div class="tools-used" id="tools-used">
+            <h2>Tools Used</h2>
+            <div id="tool-usage-container"></div>
+        </div>
     </div>
     
-    <div class="tools-list">
-        <h2>Available Tools</h2>
-        {% for tool_name, tool in tools.items() %}
-        <div class="tool">
-            <div class="tool-name">{{ tool_name }}</div>
-            <div class="tool-desc">{{ tool.description }}</div>
+    <button class="collapsible">Available Tools</button>
+    <div class="content">
+        <div class="available-tools">
+            {% for tool_name, tool in tools.items() %}
+            <div class="tool">
+                <div class="tool-name">{{ tool_name }}</div>
+                <div class="tool-desc">{{ tool.description }}</div>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
     
     <script>
+        // Handle collapsible sections
+        const coll = document.getElementsByClassName("collapsible");
+        for (let i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+        
+        // Handle form submission
         document.getElementById('submit-btn').addEventListener('click', async () => {
             const prompt = document.getElementById('prompt').value;
             if (!prompt) return;
             
             document.getElementById('response').innerHTML = '<p>Processing...</p>';
+            document.getElementById('tools-used').style.display = 'none';
             
             try {
                 const response = await fetch('/api/chat', {
@@ -125,7 +199,50 @@ HTML_TEMPLATE = """
                 });
                 
                 const data = await response.json();
+                
+                // Display the response
                 document.getElementById('response').innerHTML = `<p>${data.response}</p>`;
+                
+                // Display tools used if any
+                const toolsUsedContainer = document.getElementById('tool-usage-container');
+                toolsUsedContainer.innerHTML = '';
+                
+                if (data.tools_used && data.tools_used.length > 0) {
+                    document.getElementById('tools-used').style.display = 'block';
+                    
+                    data.tools_used.forEach((tool, index) => {
+                        const toolDiv = document.createElement('div');
+                        toolDiv.className = 'tool-usage';
+                        
+                        const toolName = document.createElement('h3');
+                        toolName.textContent = tool.name;
+                        toolDiv.appendChild(toolName);
+                        
+                        const toolDesc = document.createElement('p');
+                        toolDesc.textContent = tool.description;
+                        toolDiv.appendChild(toolDesc);
+                        
+                        const argsTitle = document.createElement('strong');
+                        argsTitle.textContent = 'Arguments:';
+                        toolDiv.appendChild(argsTitle);
+                        
+                        const argsDiv = document.createElement('div');
+                        argsDiv.className = 'tool-args';
+                        argsDiv.textContent = JSON.stringify(tool.arguments, null, 2);
+                        toolDiv.appendChild(argsDiv);
+                        
+                        const resultTitle = document.createElement('strong');
+                        resultTitle.textContent = 'Result:';
+                        toolDiv.appendChild(resultTitle);
+                        
+                        const resultDiv = document.createElement('div');
+                        resultDiv.className = 'tool-result';
+                        resultDiv.textContent = JSON.stringify(tool.result, null, 2);
+                        toolDiv.appendChild(resultDiv);
+                        
+                        toolsUsedContainer.appendChild(toolDiv);
+                    });
+                }
             } catch (error) {
                 document.getElementById('response').innerHTML = `<p>Error: ${error.message}</p>`;
             }
@@ -160,8 +277,14 @@ def chat():
         return jsonify({'error': 'No prompt provided'}), 400
     
     try:
-        response = chat_manager.chat(prompt)
-        return jsonify({'response': response})
+        # Get the response which now includes both the text and tool usage info
+        result = chat_manager.chat(prompt)
+        
+        # Return the complete result
+        return jsonify({
+            'response': result.get('response', 'No response received'),
+            'tools_used': result.get('tools_used', [])
+        })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
