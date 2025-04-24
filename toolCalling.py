@@ -6,12 +6,23 @@ import logging
 from tools.base import BaseTool
 from tools.math_tools import ExpressionEvaluator
 from tools.date_tools import DateCalculator, DateDifference
+from tools.text_tools import TextCounter, TextAnalyzer, TextFormatter
 from datetime import datetime
 import os
+from config import DEFAULT_MODEL, LOG_FILE, LOG_LEVEL
 
 # Configure logging to write to markdown file
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+
+# Set log level from config
+log_level_map = {
+    "DEBUG": logging.DEBUG,
+    "INFO": logging.INFO,
+    "WARNING": logging.WARNING,
+    "ERROR": logging.ERROR,
+    "CRITICAL": logging.CRITICAL
+}
+logger.setLevel(log_level_map.get(LOG_LEVEL, logging.DEBUG))
 
 # Remove any existing handlers (to prevent console output)
 for handler in logger.handlers[:]:
@@ -19,11 +30,11 @@ for handler in logger.handlers[:]:
 
 # Create markdown file handler with absolute path
 current_dir = os.path.dirname(os.path.abspath(__file__))
-log_file = os.path.join(current_dir, 'log.md')
+log_file_path = os.path.join(current_dir, LOG_FILE)
 
 # Create markdown file handler
-file_handler = logging.FileHandler(log_file, mode='a', encoding='utf-8')
-file_handler.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler(log_file_path, mode='a', encoding='utf-8')
+file_handler.setLevel(log_level_map.get(LOG_LEVEL, logging.DEBUG))
 
 # Create markdown-friendly formatter
 formatter = logging.Formatter('## {asctime}\n**{levelname}**: {message}\n\n', style='{')
@@ -39,6 +50,9 @@ class Tools:
         self.register_tool(ExpressionEvaluator())
         self.register_tool(DateCalculator())
         self.register_tool(DateDifference())
+        self.register_tool(TextCounter())
+        self.register_tool(TextAnalyzer())
+        self.register_tool(TextFormatter())
 
     def register_tool(self, tool: BaseTool) -> None:
         """Register a new tool"""
@@ -50,9 +64,10 @@ class Tools:
         return [tool.to_dict() for tool in self.tools.values()]
 
 class ChatManager:
-    def __init__(self, model_name: str = 'llama2'):
+    def __init__(self, model_name: str = DEFAULT_MODEL):
         self.model_name = model_name
         self.tools = Tools()
+        logger.info(f"ChatManager initialized with model: {model_name}")
 
     def should_use_tools(self, prompt: str) -> bool:
         """Determine if the prompt requires tool usage"""
@@ -205,13 +220,35 @@ class ChatManager:
             return f"Error during chat: {str(e)}"
 
 def main():
-    chat_manager = ChatManager('llama3.2')
-    while True:
-        prompt = input('Enter your prompt (or "quit" to exit): ')
-        if prompt.lower() == 'quit':
-            break
-        response = chat_manager.chat(prompt)
-        print(response)
+    """Main function to run the chat application."""
+    try:
+        # Initialize the chat manager with the default model
+        chat_manager = ChatManager(DEFAULT_MODEL)
+        logger.info("Starting chat application")
+        
+        print(f"Tool Calling System initialized with model: {DEFAULT_MODEL}")
+        print("Available tools:")
+        for tool_name in chat_manager.tools.tools.keys():
+            print(f"- {tool_name}")
+        print("\nType 'quit' to exit the application.")
+        
+        # Main chat loop
+        while True:
+            prompt = input('\nEnter your prompt: ')
+            if prompt.lower() in ['quit', 'exit', 'q']:
+                break
+                
+            # Process the prompt and get a response
+            response = chat_manager.chat(prompt)
+            print(f"\nResponse: {response}")
+            
+        logger.info("Chat application terminated normally")
+        print("\nThank you for using the Tool Calling System!")
+        
+    except Exception as e:
+        logger.error(f"Application error: {str(e)}", exc_info=True)
+        print(f"An error occurred: {str(e)}")
+        print("Check the log file for details.")
 
 if __name__ == "__main__":
     main()
