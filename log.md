@@ -70,3 +70,43 @@
 **DEBUG**: Tool detection result: none
 
 
+## 2025-04-24 08:48:04,706
+**INFO**: ChatManager initialized with model: llama3.2
+
+
+## 2025-04-24 08:48:04,707
+**INFO**: Starting chat application
+
+
+## 2025-04-24 08:49:54,908
+**DEBUG**: Tool detection result: math
+
+
+## 2025-04-24 08:49:54,908
+**DEBUG**: Sending prompt with tools: Calculate 15% of 200
+
+
+## 2025-04-24 08:49:55,453
+**DEBUG**: Tool response: role='assistant' content='' images=None tool_calls=[ToolCall(function=Function(name='evaluate_expression', arguments={'expression': '0.15 * 200'}))]
+
+
+## 2025-04-24 08:49:55,453
+**DEBUG**: Processing tool calls: [ToolCall(function=Function(name='evaluate_expression', arguments={'expression': '0.15 * 200'}))]
+
+
+## 2025-04-24 08:49:55,453
+**DEBUG**: Processing tool: evaluate_expression
+
+
+## 2025-04-24 08:49:55,453
+**DEBUG**: Tool arguments: {'expression': '0.15 * 200'}
+
+
+## 2025-04-24 08:49:55,455
+**DEBUG**: Tool execution result: 30.0
+
+
+## 2025-04-24 08:49:55,455
+**DEBUG**: Final results: [30.0]
+
+
