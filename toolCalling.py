@@ -264,6 +264,9 @@ Here are the tools available to you:
 - `get_current_day_name`: Gets the name of the current day. (No arguments: `{}`)
 - `evaluate_expression`: Evaluates mathematical expressions.
   - `{"expression": "your_math_expression"}`
+  - **IMPORTANT for `evaluate_expression`**:
+    - Always use `**` for exponentiation (e.g., `2**3` for 2 to the power of 3). Do NOT use `^`.
+    - Pay close attention to order of operations. Use parentheses `()` to clarify order when phrases like "then" or "the result of that" are used. For example, "What is 5 plus 3, then multiplied by 2?" should be `(5 + 3) * 2`. "What is 9 times 14, then power by 2?" should be `(9 * 14)**2`.
 - `count_words`: Use this tool to count the number of words in a specific text provided by the user. The user MUST provide the text.
   - `{"text": "ACTUAL_TEXT_FROM_USER_PROMPT_OR_CONTEXT"}`
 - `analyze_text`: Use this tool for a comprehensive analysis of a specific text provided by the user, including **character count (overall letter count)**, word count, sentence count, and average word length. The user MUST provide the text. This is preferred if the user asks for "total letter count" or "total character count".
