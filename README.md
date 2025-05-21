@@ -156,10 +156,9 @@ Install all dependencies with:
 ```
 pip install -r requirements.txt
 ```
-
-## Visual Demonstration (Suggestion)
-
-*(Consider adding a GIF or a short video here demonstrating the web interface in action, showcasing a user prompt, the tool selection process (if visible or logged), and the final synthesized response. This would significantly enhance the README.)*
+## Future Enhancements
+-   **Tool Expansion**: Add more tools for diverse functionalities (e.g., web scraping, file manipulation).
+- **image support**: Integrate image processing tools for OCR, image analysis, etc.
 
 ## Capstone Project Significance
 
