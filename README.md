@@ -73,7 +73,20 @@ This project demonstrates a pivotal shift in AI – from passive text generators
    cd tool-calling-system
    ```
 
-2. **Install dependencies**:
+2. **Install Ollama**:
+   This project requires Ollama to be installed and running to serve the language model.
+   *   Download Ollama from the official website: [https://ollama.com/download](https://ollama.com/download)
+   *   Follow the installation instructions for your operating system (Windows, macOS, or Linux).
+   *   Ensure the Ollama application is running before proceeding.
+
+3. **Pull the Required Model**:
+   Once Ollama is running, open your terminal or command prompt and pull the IBM Granite model used by this project:
+   ```sh
+   ollama pull granite3.3
+   ```
+   (This model `granite3.3` is set as the `DEFAULT_MODEL` in `config.py`.)
+
+4. **Install Python dependencies**:
    ```sh
    pip install -r requirements.txt
    ```

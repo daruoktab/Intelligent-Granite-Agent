@@ -3432,3 +3432,79 @@ ValueError: Failed to calculate date difference: time data 'YYYY-MM-DD_FROM_USER
 **WARNING**: Synthesized response was not valid JSON. Content: 'The difference in days between today, 2025-05-21, and December 25th, 2023 is 513 days.'. Treating as plain text.
 
 
+## 2025-05-21 21:41:20,873
+**INFO**: Chat application terminated normally
+
+
+## 2025-05-21 21:41:27,230
+**INFO**: ChatManager initialized with model: granite3.3
+
+
+## 2025-05-21 21:41:29,994
+**INFO**: ChatManager initialized with model: granite3.3
+
+
+## 2025-05-21 21:41:34,771
+**DEBUG**: Tool calling iteration 1/5
+
+
+## 2025-05-21 21:41:36,594
+**DEBUG**: LLM response (iteration 1): role='assistant' content='' images=None tool_calls=[ToolCall(function=Function(name='get_current_date', arguments={}))]
+
+
+## 2025-05-21 21:41:36,594
+**INFO**: LLM requested tool calls (iteration 1): [ToolCall(function=Function(name='get_current_date', arguments={}))]
+
+
+## 2025-05-21 21:41:36,594
+**DEBUG**: Attempting to execute tool: get_current_date with raw args: {} (ID: call_get_current_date_1747838496.594916)
+
+
+## 2025-05-21 21:41:36,594
+**DEBUG**: Tool get_current_date execution result: 2025-05-21
+
+
+## 2025-05-21 21:41:36,594
+**DEBUG**: Tool calling iteration 2/5
+
+
+## 2025-05-21 21:41:41,186
+**DEBUG**: LLM response (iteration 2): role='assistant' content='' images=None tool_calls=[ToolCall(function=Function(name='date_difference', arguments={'date1': '2025-05-21', 'date2': '2023-12-25'}))]
+
+
+## 2025-05-21 21:41:41,186
+**INFO**: LLM requested tool calls (iteration 2): [ToolCall(function=Function(name='date_difference', arguments={'date1': '2025-05-21', 'date2': '2023-12-25'}))]
+
+
+## 2025-05-21 21:41:41,186
+**DEBUG**: Attempting to execute tool: date_difference with raw args: {'date1': '2025-05-21', 'date2': '2023-12-25'} (ID: call_date_difference_1747838501.186647)
+
+
+## 2025-05-21 21:41:41,189
+**DEBUG**: Tool date_difference execution result: 513
+
+
+## 2025-05-21 21:41:41,189
+**DEBUG**: Tool calling iteration 3/5
+
+
+## 2025-05-21 21:41:42,940
+**DEBUG**: LLM response (iteration 3): role='assistant' content='The difference in days between today and December 25, 2023, is 513 days.' images=None tool_calls=None
+
+
+## 2025-05-21 21:41:42,940
+**DEBUG**: Content was not JSON or did not contain tool_calls when checking for nested tool_calls.
+
+
+## 2025-05-21 21:41:42,940
+**INFO**: LLM did not request tools (iteration 3). Expecting final answer.
+
+
+## 2025-05-21 21:41:42,940
+**INFO**: Handling as synthesized response (expected FormattedFinalResponse JSON).
+
+
+## 2025-05-21 21:41:42,940
+**WARNING**: Synthesized response was not valid JSON. Content: 'The difference in days between today and December 25, 2023, is 513 days.'. Treating as plain text.
+
+
