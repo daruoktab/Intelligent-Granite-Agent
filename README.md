@@ -2,9 +2,9 @@
 ![Project Showcase](property/img1.png)
 **Welcome to a Capstone Adventure in AI!**
 
-This isn't just another chatbot. This project unveils an **intelligent agent** powered by the formidable **IBM Granite series Large Language Model (LLM)**. Witness firsthand how this LLM transcends basic Q&A, acting as a sophisticated agent that understands your needs, reasons about solutions, and dynamically utilizes a suite of tools to get the job done! 🛠️
+This isn't just another chatbot. This project unveils an **intelligent agent** powered by the formidable **IBM Granite series Large Language Model (LLM)**, all running locally on your machine thanks to Ollama. Witness firsthand how this LLM transcends basic Q&A, acting as a sophisticated agent that understands your needs, reasons about solutions, and dynamically utilizes a suite of tools to get the job done! 🛠️
 
-Whether it's complex date calculations, tricky math problems, or nuanced text analysis, our Granite-powered agent intelligently calls upon specialized tools, extending its capabilities far beyond its inherent knowledge. Explore the future of interactive AI through our sleek web interface (now with Dark Mode! 🌙) or our trusty command-line companion.
+Whether it's complex date calculations, tricky math problems, or nuanced text analysis, our Granite-powered agent intelligently calls upon specialized tools, extending its capabilities far beyond its inherent knowledge. All interactions and data processing happen on your device, ensuring privacy and control. Explore the future of interactive AI through our sleek web interface (now with Dark Mode! 🌙) or our trusty command-line companion.
 
 ## The Agentic Powerhouse: Core Objective & Significance 🧠✨
 
@@ -41,6 +41,7 @@ This project demonstrates a pivotal shift in AI – from passive text generators
 -   🧩 **Expandable Tool Arsenal**: A modular design means new tools can be easily integrated, constantly boosting the agent's skills!
 -   💻 **Dual Interaction Modes**: Choose your adventure! Engage via a polished, modern web UI (complete with a cool dark mode!) or a robust command-line interface.
 -   🔍 **Transparent Insights**: The web UI peels back the curtain, showing exactly which tools were used, with what arguments, and their results – a fantastic way to see the agent's "thinking" process!
+-   🔒 **Local & Private**: Powered by Ollama, the entire system, including the LLM, runs locally on your machine. This means your data stays private, and you have full control over the environment.
 -   📝 **Detailed Logging**: Every step, every tool call, every result meticulously logged for easy debugging and deeper understanding.
 
 ## Tools
@@ -73,7 +74,7 @@ This project demonstrates a pivotal shift in AI – from passive text generators
    ```
 
 2. **Install Ollama**:
-   This project requires Ollama to be installed and running to serve the language model.
+   This project requires Ollama to be installed and running to serve the language model locally on your machine.
    *   Download Ollama from the official website: [https://ollama.com/download](https://ollama.com/download)
    *   Follow the installation instructions for your operating system (Windows, macOS, or Linux).
    *   Ensure the Ollama application is running before proceeding.
