@@ -1,15 +1,16 @@
-import ollama
-from ollama import chat, ChatResponse
 import ast
-from typing import Dict, List, Type, Any
 import logging
-from tools.base import BaseTool
-from tools.math_tools import ExpressionEvaluator
-from tools.date_tools import DateCalculator, DateDifference
-from tools.text_tools import TextCounter, TextAnalyzer, TextFormatter
-from datetime import datetime
 import os
+from datetime import datetime
+from typing import Any, Dict, List, Type
+
+import ollama
 from config import DEFAULT_MODEL, LOG_FILE, LOG_LEVEL
+from ollama import ChatResponse, chat
+from tools.base import BaseTool
+from tools.date_tools import DateCalculator, DateDifference
+from tools.math_tools import ExpressionEvaluator
+from tools.text_tools import TextAnalyzer, TextCounter, TextFormatter
 
 # Configure logging to write to markdown file
 logger = logging.getLogger(__name__)

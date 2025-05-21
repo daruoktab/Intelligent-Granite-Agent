@@ -3,9 +3,11 @@ Web interface for the Tool Calling System.
 """
 
 import os
-from flask import Flask, request, jsonify, render_template_string
-from toolCalling import ChatManager
+
+from flask import Flask, jsonify, render_template_string, request
+
 from config import DEFAULT_MODEL
+from toolCalling import ChatManager
 
 app = Flask(__name__)
 chat_manager = ChatManager(DEFAULT_MODEL)

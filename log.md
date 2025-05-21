@@ -218,3 +218,107 @@
 **INFO**: ChatManager initialized with model: llama3.2
 
 
+## 2025-04-24 09:15:00,917
+**DEBUG**: Tool detection result: text
+
+
+## 2025-04-24 09:15:00,917
+**DEBUG**: Sending prompt with tools: Count the words in this text.
+
+
+## 2025-04-24 09:15:01,498
+**DEBUG**: Tool response: role='assistant' content='' images=None tool_calls=[ToolCall(function=Function(name='count_words', arguments={'text': 'this is a sample text to count words in'}))]
+
+
+## 2025-04-24 09:15:01,498
+**DEBUG**: Processing tool calls: [ToolCall(function=Function(name='count_words', arguments={'text': 'this is a sample text to count words in'}))]
+
+
+## 2025-04-24 09:15:01,498
+**DEBUG**: Processing tool: count_words
+
+
+## 2025-04-24 09:15:01,498
+**DEBUG**: Tool arguments: {'text': 'this is a sample text to count words in'}
+
+
+## 2025-04-24 09:15:01,498
+**DEBUG**: Tool execution result: 9
+
+
+## 2025-04-24 09:15:01,498
+**DEBUG**: Final results: [9]
+
+
+## 2025-04-24 09:16:30,685
+**DEBUG**: Tool detection result: text
+
+
+## 2025-04-24 09:16:30,685
+**DEBUG**: Sending prompt with tools: hello my name is daru. Count the words in this text.
+
+
+## 2025-04-24 09:16:31,231
+**DEBUG**: Tool response: role='assistant' content='' images=None tool_calls=[ToolCall(function=Function(name='count_words', arguments={'text': 'hello my name is daru'}))]
+
+
+## 2025-04-24 09:16:31,231
+**DEBUG**: Processing tool calls: [ToolCall(function=Function(name='count_words', arguments={'text': 'hello my name is daru'}))]
+
+
+## 2025-04-24 09:16:31,231
+**DEBUG**: Processing tool: count_words
+
+
+## 2025-04-24 09:16:31,231
+**DEBUG**: Tool arguments: {'text': 'hello my name is daru'}
+
+
+## 2025-04-24 09:16:31,231
+**DEBUG**: Tool execution result: 5
+
+
+## 2025-04-24 09:16:31,231
+**DEBUG**: Final results: [5]
+
+
+## 2025-04-24 14:20:22,434
+**INFO**: ChatManager initialized with model: llama3.2
+
+
+## 2025-04-24 14:20:26,416
+**INFO**: ChatManager initialized with model: llama3.2
+
+
+## 2025-04-24 14:21:26,202
+**DEBUG**: Tool detection result: math
+
+
+## 2025-04-24 14:21:26,202
+**DEBUG**: Sending prompt with tools: what is 25 times 12
+
+
+## 2025-04-24 14:21:28,956
+**DEBUG**: Tool response: role='assistant' content='' images=None tool_calls=[ToolCall(function=Function(name='evaluate_expression', arguments={'expression': '25*12'}))]
+
+
+## 2025-04-24 14:21:28,956
+**DEBUG**: Processing tool calls: [ToolCall(function=Function(name='evaluate_expression', arguments={'expression': '25*12'}))]
+
+
+## 2025-04-24 14:21:28,956
+**DEBUG**: Processing tool: evaluate_expression
+
+
+## 2025-04-24 14:21:28,956
+**DEBUG**: Tool arguments: {'expression': '25*12'}
+
+
+## 2025-04-24 14:21:28,956
+**DEBUG**: Tool execution result: 300.0
+
+
+## 2025-04-24 14:21:28,956
+**DEBUG**: Final results: [300.0]
+
+
