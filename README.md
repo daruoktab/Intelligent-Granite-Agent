@@ -1,6 +1,5 @@
-
 # 🚀 The IBM Granite Agent: Your Smart Tool-Using LLM Companion! 🤖
-
+![Project Showcase](property/img1.png)
 **Welcome to a Capstone Adventure in AI!**
 
 This isn't just another chatbot. This project unveils an **intelligent agent** powered by the formidable **IBM Granite series Large Language Model (LLM)**. Witness firsthand how this LLM transcends basic Q&A, acting as a sophisticated agent that understands your needs, reasons about solutions, and dynamically utilizes a suite of tools to get the job done! 🛠️
