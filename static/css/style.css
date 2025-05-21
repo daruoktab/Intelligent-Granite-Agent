@@ -1,0 +1,367 @@
+:root {
+    --primary-color: #007bff; /* Blue */
+    --secondary-color: #6c757d; /* Grey */
+    --success-color: #28a745; /* Green */
+    --info-color: #17a2b8; /* Teal */
+    
+    /* Light Mode Defaults */
+    --bg-color: #f8f9fa;
+    --text-color: #343a40;
+    --text-muted-color: #6c757d;
+    --container-bg-color: #fff;
+    --border-color: #dee2e6;
+    --input-bg-color: #fff;
+    --input-border-color: #ced4da;
+    --button-primary-bg: var(--primary-color);
+    --button-primary-text: #fff;
+    --response-bg-color: #e6f7ff;
+    --response-border-color: var(--primary-color);
+    --tools-used-bg-color: #f0f0f0;
+    --tools-used-border-color: var(--secondary-color);
+    --tool-usage-bg-color: #fff;
+    --tool-usage-border-color: var(--border-color);
+    --tool-args-bg-color: #f8f9fa;
+    --tool-args-border-color: #e9ecef;
+    --collapsible-bg-color: #e9ecef;
+    --collapsible-hover-bg-color: #ced4da;
+    --collapsible-active-bg-color: var(--primary-color);
+    --collapsible-active-text-color: #fff;
+    --collapsible-icon-color: var(--text-muted-color);
+    --collapsible-active-icon-color: #fff;
+    --tool-item-bg-color: #f8f9fa;
+    --tool-item-border-color: #e9ecef;
+    --box-shadow-color: rgba(0, 0, 0, 0.1);
+    --focus-ring-color: rgba(0, 123, 255, 0.25);
+}
+
+body.dark-mode {
+    --bg-color: #1a1a1a; /* Darker grey */
+    --text-color: #e0e0e0; /* Light grey text */
+    --text-muted-color: #a0a0a0; /* Lighter grey for muted */
+    --container-bg-color: #2c2c2c; /* Dark container */
+    --border-color: #444; /* Darker border */
+    --input-bg-color: #333;
+    --input-border-color: #555;
+    --button-primary-bg: #0056b3; /* Darker blue for primary button */
+    --button-primary-text: #fff;
+    --response-bg-color: #2a3f50; /* Darker blueish */
+    --response-border-color: var(--primary-color);
+    --tools-used-bg-color: #3a3a3a;
+    --tools-used-border-color: var(--secondary-color);
+    --tool-usage-bg-color: #333;
+    --tool-usage-border-color: #484848;
+    --tool-args-bg-color: #252525;
+    --tool-args-border-color: #383838;
+    --collapsible-bg-color: #3a3a3a;
+    --collapsible-hover-bg-color: #484848;
+    --collapsible-active-bg-color: #0056b3; /* Darker blue */
+    --collapsible-active-text-color: #fff;
+    --collapsible-icon-color: var(--text-muted-color);
+    --collapsible-active-icon-color: #fff;
+    --tool-item-bg-color: #333;
+    --tool-item-border-color: #484848;
+    --box-shadow-color: rgba(255, 255, 255, 0.05);
+    --focus-ring-color: rgba(0, 123, 255, 0.35);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 40px;
+    font-weight: 300;
+    font-size: 2.5em;
+}
+
+h2 {
+    color: var(--text-color);
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: var(--primary-color); /* Keep primary for accents if desired, or use a dark-mode accent */
+    font-weight: 500;
+}
+
+.container {
+    border: 1px solid var(--border-color);
+    border-radius: 0.3rem;
+    padding: 30px;
+    margin-top: 20px;
+    background-color: var(--container-bg-color);
+    box-shadow: 0 0.5rem 1rem var(--box-shadow-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-muted-color);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.3s ease, color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem var(--focus-ring-color);
+}
+
+button#submit-btn {
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Keep shadow subtle or adjust for dark mode */
+}
+
+body.dark-mode button#submit-btn {
+    box-shadow: 0 2px 4px rgba(255,255,255,0.05);
+}
+
+
+button#submit-btn:hover {
+    background-color: #0056b3; /* Consider a dark mode hover variable */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+body.dark-mode button#submit-btn:hover {
+    background-color: #004085; /* Even darker blue for dark mode hover */
+    box-shadow: 0 4px 8px rgba(255,255,255,0.08);
+}
+
+
+.response {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--response-bg-color);
+    border-left: 4px solid var(--response-border-color);
+    border-radius: 0.3rem;
+    min-height: 60px;
+    word-wrap: break-word;
+    transition: background-color 0.3s ease, border-left-color 0.3s ease;
+}
+
+.response p {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.tools-used {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--tools-used-bg-color);
+    border-left: 4px solid var(--tools-used-border-color);
+    border-radius: 0.3rem;
+    display: none; 
+    transition: background-color 0.3s ease, border-left-color 0.3s ease;
+}
+
+.tools-used h2 {
+    margin-top: 0;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.tool-usage {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: var(--tool-usage-bg-color);
+    border: 1px solid var(--tool-usage-border-color);
+    border-radius: 0.3rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.tool-usage h3 {
+    margin-top: 0;
+    /* color: var(--primary-color); */ /* Using text-color for better dark mode adaptability */
+    color: var(--text-color); 
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+body.dark-mode .tool-usage h3 {
+    color: var(--primary-color); /* Or a specific dark mode accent */
+}
+
+
+.tool-usage strong {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.tool-args, .tool-result {
+    margin-top: 5px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    background-color: var(--tool-args-bg-color);
+    padding: 10px 15px;
+    border-radius: 0.3rem;
+    overflow-x: auto;
+    border: 1px solid var(--tool-args-border-color);
+    font-size: 0.9em;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.collapsible {
+    cursor: pointer;
+    padding: 12px 20px;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    text-align: left;
+    outline: none;
+    background-color: var(--collapsible-bg-color);
+    margin-top: 30px;
+    font-weight: 500;
+    font-size: 1.1em;
+    border-radius: 0.3rem;
+    color: var(--text-color);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible:hover {
+    background-color: var(--collapsible-hover-bg-color);
+    border-color: var(--text-muted-color); /* Darken border on hover */
+}
+
+.collapsible.active {
+    background-color: var(--collapsible-active-bg-color);
+    color: var(--collapsible-active-text-color);
+    border-color: var(--collapsible-active-bg-color);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.collapsible::after { 
+    content: '▼'; 
+    font-family: sans-serif; 
+    font-size: 0.8em;
+    color: var(--collapsible-icon-color);
+    transition: transform 0.3s ease-out, color 0.3s ease;
+}
+
+.collapsible.active::after {
+    transform: rotate(-180deg);
+    color: var(--collapsible-active-icon-color);
+}
+
+.content {
+    padding: 0; 
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out, background-color 0.3s ease, border-color 0.3s ease;
+    background-color: var(--container-bg-color); /* Match container or specific content bg */
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 0.3rem 0.3rem;
+}
+
+.content.open { 
+    padding: 20px;
+}
+
+.tool {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: var(--tool-item-bg-color);
+    border: 1px solid var(--tool-item-border-color);
+    border-radius: 0.3rem;
+    transition: box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+.tool:last-child {
+    margin-bottom: 0;
+}
+
+.tool:hover {
+    box-shadow: 0 0.25rem 0.75rem var(--box-shadow-color);
+}
+
+.tool-name {
+    font-weight: 500;
+    color: var(--primary-color); /* Or a dark-mode specific accent */
+    font-size: 1.05em;
+}
+body.dark-mode .tool-name {
+    color: var(--info-color); /* Example: Teal for tool names in dark mode */
+}
+
+
+.tool-desc {
+    font-size: 0.95em;
+    color: var(--text-muted-color);
+    margin-top: 5px;
+}
+
+/* Styling for error messages in response div */
+.response p[style*="color: red;"] {
+    background-color: #ffebee; /* Light red background */
+    color: #c62828 !important; /* Darker red text */
+    padding: 10px;
+    border-left: 4px solid #d32f2f; /* Red accent */
+    border-radius: 0.3rem;
+}
+
+body.dark-mode .response p[style*="color: red;"] {
+    background-color: #521616; /* Dark red background */
+    color: #ffcdd2 !important; /* Lighter red text */
+    border-left-color: #e57373; /* Lighter red accent */
+}
+
+/* Dark Mode Toggle Button - Basic Styling */
+#darkModeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    background-color: var(--container-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.3rem;
+    cursor: pointer;
+    z-index: 1000;
+    font-size: 0.9em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+body.dark-mode #darkModeToggle {
+    background-color: var(--collapsible-bg-color); /* Match other UI elements */
+    border-color: var(--border-color);
+    box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+}

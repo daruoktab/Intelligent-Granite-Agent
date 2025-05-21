@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Calling System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <button id="darkModeToggle">Toggle Dark Mode</button>
+    <h1>Tool Calling System</h1>
+    
+    <div class="container">
+        <div class="input-group">
+            <label for="prompt">Enter your prompt:</label>
+            <input type="text" id="prompt" placeholder="e.g., What is 25 * 16? or What date will it be 45 days from today?" autofocus>
+        </div>
+        <button id="submit-btn">Submit</button>
+        
+        <div class="response" id="response">
+            <p>Response will appear here...</p>
+        </div>
+        
+        <div class="tools-used" id="tools-used">
+            <h2>Tools Used</h2>
+            <div id="tool-usage-container"></div>
+        </div>
+    </div>
+    
+    <button class="collapsible">Available Tools</button>
+    <div class="content">
+        <div class="available-tools">
+            {% for tool_name, tool in tools.items() %}
+            <div class="tool">
+                <div class="tool-name">{{ tool_name }}</div>
+                <div class="tool-desc">{{ tool.description }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

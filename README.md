@@ -1,7 +1,19 @@
 
-# Tool Calling System
+# Advanced Tool Integration with IBM Granite LLM: A Capstone Project
 
-This repository contains a tool calling system that integrates various tools for date calculations, mathematical expression evaluations, and text processing into LLM (Large Language Model) based chatbots. The system provides both a command-line interface and a web interface.
+This capstone project showcases an advanced tool-calling system powered by an **IBM Granite series Large Language Model (LLM)**. It demonstrates the LLM's sophisticated capabilities in understanding user queries, intelligently selecting and invoking appropriate tools, and synthesizing information to provide accurate and context-aware responses. The system effectively extends the LLM's knowledge and functionalities by integrating external tools for tasks such as date calculations, mathematical evaluations, and text processing.
+
+This repository provides both a command-line interface (CLI) and a user-friendly web interface to interact with this intelligent tool-integrated chatbot.
+
+## Core Objective & Significance
+
+The primary goal of this project is to explore and demonstrate the power of modern LLMs, specifically IBM Granite, in creating agentic systems that can:
+-   Parse complex natural language prompts.
+-   Reason about the necessary steps and tools required to fulfill a request.
+-   Dynamically call external functions/tools with appropriate arguments.
+-   Process tool outputs and generate coherent, natural language responses.
+
+This work highlights a key advancement in AI – moving beyond simple text generation to creating systems that can act and interact with external data sources and services.
 
 ## Project Structure
 
@@ -21,12 +33,13 @@ This repository contains a tool calling system that integrates various tools for
 
 ## Features
 
-- **Tool-based Architecture**: Modular design allows easy addition of new tools
-- **Natural Language Interface**: Interact with tools using natural language
-- **Web Interface**: User-friendly web UI for interacting with the system
-- **Command Line Interface**: Traditional CLI for scripting and direct use
-- **Transparent Tool Usage**: System shows which tools were used to answer questions
-- **Logging**: Comprehensive logging of tool usage and results
+- **Intelligent Tool Orchestration**: Powered by IBM Granite, the system intelligently determines when and how to use available tools based on user prompts.
+- **Dynamic Function Calling**: Demonstrates the LLM's ability to format requests for external tools and parse their JSON responses.
+- **Natural Language Understanding & Synthesis**: The LLM excels at interpreting diverse user inputs and generating human-like explanations from structured tool outputs.
+- **Modular Toolset**: Easily extensible with new tools, each providing specific functionalities (date, math, text).
+- **Dual Interfaces**: Accessible via a sleek, modern web UI (with dark mode) and a functional command-line interface.
+- **Transparent Operation**: The web interface clearly shows which tools were invoked and their arguments/results, offering insight into the LLM's decision-making process.
+- **Comprehensive Logging**: Detailed logs capture interactions, tool usage, and system behavior for analysis and debugging.
 
 ## Tools
 
@@ -34,6 +47,9 @@ This repository contains a tool calling system that integrates various tools for
 
 - **DateCalculator**: Calculates dates by adding or subtracting days, months, or years from a given date.
 - **DateDifference**: Calculates the difference in days between two dates.
+- **GetCurrentDate**: Retrieves the current date in YYYY-MM-DD format.
+- **GetCurrentTime**: Retrieves the current time in HH:MM:SS format.
+- **GetCurrentDayName**: Retrieves the name of the current day (e.g., Monday).
 
 ### Math Tools
 
@@ -44,6 +60,7 @@ This repository contains a tool calling system that integrates various tools for
 - **TextCounter**: Counts the number of words in a given text.
 - **TextAnalyzer**: Analyzes text properties including character count, word count, sentence count, and average word length.
 - **TextFormatter**: Formats text with operations like uppercase, lowercase, title case, etc.
+- **SpecificLetterCounter**: Counts the occurrences of a specific letter or substring within a given text (e.g., "how many 'a's in 'banana'").
 
 ## Installation
 
@@ -72,6 +89,9 @@ This repository contains a tool calling system that integrates various tools for
      - "What date will it be X days/months/years from today?"
      - "What date was X days/months/years ago?"
      - "Days between date1 and date2"
+     - "What is the current date?"
+     - "What time is it?"
+     - "What day of the week is it?"
    - For math calculations:
      - "What is 2 + 2?"
      - "Calculate 15% of 200"
@@ -80,6 +100,7 @@ This repository contains a tool calling system that integrates various tools for
      - "Count the words in this text."
      - "Analyze this paragraph for me."
      - "Convert this text to uppercase."
+     - "How many times does 'the' appear in 'the quick brown fox jumps over the lazy dog'?"
 
 3. **View the results**:
    The system will determine the appropriate tool to use, display the result, and show which tools were used.
@@ -113,9 +134,17 @@ Logs are written to `log.md` in a markdown-friendly format. This includes tool a
 - Python 3.8+
 - ollama library
 - flask (for web interface)
-- python-dateutil
+- pydantic
 
 Install all dependencies with:
 ```
 pip install -r requirements.txt
 ```
+
+## Visual Demonstration (Suggestion)
+
+*(Consider adding a GIF or a short video here demonstrating the web interface in action, showcasing a user prompt, the tool selection process (if visible or logged), and the final synthesized response. This would significantly enhance the README.)*
+
+## Capstone Project Significance
+
+This project serves as a practical demonstration of leveraging advanced LLM capabilities for building intelligent, tool-augmented applications. The use of IBM Granite for sophisticated tool orchestration and natural language interaction highlights the potential for creating more powerful and versatile AI systems.

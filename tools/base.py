@@ -1,4 +1,4 @@
-from typing import Any, Dict, Callable
+from typing import Any, Dict # Removed Callable
 
 class BaseTool:
     name: str

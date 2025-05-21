@@ -1,12 +1,12 @@
 from datetime import datetime, timedelta
-from .base import BaseTool
+from .base import BaseTool # Removed Dict, Any import as it's not used for casting here
 
 class DateCalculator(BaseTool):
     def __init__(self):
         super().__init__(
             name="calculate_date",
             description="Calculate dates by adding or subtracting days/months/years from a given date",
-            parameters={
+            parameters={ # type: ignore
                 'type': 'object',
                 'required': ['operation', 'amount', 'unit', 'date'],
                 'properties': {
@@ -32,15 +32,30 @@ class DateCalculator(BaseTool):
             }
         )
 
-    def execute(self, operation: str, amount: int, unit: str, date: str) -> str:
+    def execute(self, **kwargs: any) -> str: # type: ignore
+        operation = kwargs.get('operation')
+        amount_arg = kwargs.get('amount')
+        unit = kwargs.get('unit')
+        date_arg = kwargs.get('date')
+
+        if not isinstance(operation, str) or not operation:
+            raise ValueError("Missing or invalid 'operation' (string) argument for DateCalculator.")
+        if amount_arg is None:
+            raise ValueError("Missing 'amount' argument for DateCalculator.")
+        # amount_arg will be converted to int in the try block
+        if not isinstance(unit, str) or not unit:
+            raise ValueError("Missing or invalid 'unit' (string) argument for DateCalculator.")
+        if not isinstance(date_arg, str) or not date_arg:
+            raise ValueError("Missing or invalid 'date' (string) argument for DateCalculator.")
+
         try:
             # Convert amount to integer
-            amount = int(str(amount))
+            amount = int(str(amount_arg))
             
-            if date.lower() == 'today':
+            if date_arg.lower() == 'today': # date_arg is now confirmed str
                 base_date = datetime.now().date()
             else:
-                base_date = datetime.strptime(date, '%Y-%m-%d').date()
+                base_date = datetime.strptime(date_arg, '%Y-%m-%d').date()
 
             if unit == 'days':
                 delta = timedelta(days=amount)
@@ -61,6 +76,8 @@ class DateCalculator(BaseTool):
                 result_date = base_date.replace(year=year, month=month, day=day)
             elif unit == 'years':
                 result_date = base_date.replace(year=base_date.year + (amount if operation == 'add' else -amount))
+            else:
+                raise ValueError(f"Invalid unit: {unit}")
 
             return result_date.strftime('%Y-%m-%d')
         except Exception as e:
@@ -71,7 +88,7 @@ class DateDifference(BaseTool):
         super().__init__(
             name="date_difference",
             description="Calculate the difference between two dates in days",
-            parameters={
+            parameters={ # type: ignore
                 'type': 'object',
                 'required': ['date1', 'date2'],
                 'properties': {
@@ -87,10 +104,69 @@ class DateDifference(BaseTool):
             }
         )
 
-    def execute(self, date1: str, date2: str) -> int:
+    def execute(self, **kwargs: any) -> int: # type: ignore
+        date1_arg = kwargs.get('date1')
+        date2_arg = kwargs.get('date2')
+
+        if not isinstance(date1_arg, str) or not date1_arg:
+            raise ValueError("Missing or invalid 'date1' (string) argument for DateDifference.")
+        if not isinstance(date2_arg, str) or not date2_arg:
+            raise ValueError("Missing or invalid 'date2' (string) argument for DateDifference.")
+
         try:
-            d1 = datetime.now() if date1.lower() == 'today' else datetime.strptime(date1, '%Y-%m-%d')
-            d2 = datetime.now() if date2.lower() == 'today' else datetime.strptime(date2, '%Y-%m-%d')
+            d1 = datetime.now() if date1_arg.lower() == 'today' else datetime.strptime(date1_arg, '%Y-%m-%d') # date1_arg is confirmed str
+            d2 = datetime.now() if date2_arg.lower() == 'today' else datetime.strptime(date2_arg, '%Y-%m-%d') # date2_arg is confirmed str
             return abs((d2 - d1).days)
         except Exception as e:
             raise ValueError(f"Failed to calculate date difference: {str(e)}")
+
+class GetCurrentDate(BaseTool):
+    def __init__(self):
+        super().__init__(
+            name="get_current_date",
+            description="Get the current date",
+            parameters={ # type: ignore
+                'type': 'object',
+                'properties': {}
+            }
+        )
+
+    def execute(self, **kwargs: any) -> str: # type: ignore
+        try:
+            return datetime.now().strftime('%Y-%m-%d')
+        except Exception as e:
+            raise ValueError(f"Failed to get current date: {str(e)}")
+
+class GetCurrentTime(BaseTool):
+    def __init__(self):
+        super().__init__(
+            name="get_current_time",
+            description="Get the current time",
+            parameters={ # type: ignore
+                'type': 'object',
+                'properties': {}
+            }
+        )
+
+    def execute(self, **kwargs: any) -> str: # type: ignore
+        try:
+            return datetime.now().strftime('%H:%M:%S')
+        except Exception as e:
+            raise ValueError(f"Failed to get current time: {str(e)}")
+
+class GetCurrentDayName(BaseTool):
+    def __init__(self):
+        super().__init__(
+            name="get_current_day_name",
+            description="Get the name of the current day (e.g., Monday, Tuesday).",
+            parameters={ # type: ignore
+                'type': 'object',
+                'properties': {}
+            }
+        )
+
+    def execute(self, **kwargs: any) -> str: # type: ignore
+        try:
+            return datetime.now().strftime('%A')
+        except Exception as e:
+            raise ValueError(f"Failed to get current day name: {str(e)}")
