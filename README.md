@@ -158,8 +158,8 @@ pip install -r requirements.txt
 ```
 ## Future Enhancements
 -   **Tool Expansion**: Add more tools for diverse functionalities (e.g., web scraping, file manipulation).
-- **image support**: Integrate image processing tools for OCR, image analysis, etc.
-- **multi-turn conversations**: Enhance the agent's ability to maintain context over multiple interactions.
+- **Image Support**: Integrate image processing tools for OCR, image analysis, etc.
+- **Multi-Turn Conversations**: Enhance the agent's ability to maintain context over multiple interactions.
 
 ## Capstone Project Significance
 
