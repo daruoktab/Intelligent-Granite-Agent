@@ -69,8 +69,8 @@ This project demonstrates a pivotal shift in AI – from passive text generators
 
 1. **Clone the repository**:
    ```sh
-   git clone https://github.com/daruoktab/ollama.git
-   cd tool-calling-system
+   git clone https://github.com/daruoktab/Intelligent-Granite-Agent.git
+   cd Intelligent-Granite-Agent
    ```
 
 2. **Install Ollama**:
