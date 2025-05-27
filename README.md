@@ -152,8 +152,15 @@ Logs are written to `log.md` in a markdown-friendly format. This includes tool a
 - flask (for web interface)
 - pydantic
 
-Install all dependencies with:
+## Install all dependencies with:
+**Create and activate a virtual environment** (recommended):
+```sh
+python -m venv venv
+venv\Scripts\activate
 ```
+
+## **Install Python dependencies**:
+```sh
 pip install -r requirements.txt
 ```
 ## Future Enhancements
