@@ -20,24 +20,25 @@ This project demonstrates a pivotal shift in AI – from passive text generators
 ## Project Structure
 
 ```
-├── dockerfile          # Docker configuration
-├── .dockerignore      # Docker ignore patterns
-├── toolCalling.py     # Main CLI application
-├── web_app.py         # Web interface
-├── config.py          # Configuration settings
-├── requirements.txt   # Dependencies
-├── log.md             # Log file
-├── README.md          # Documentation
-├── static/            # Web assets (CSS, JS)
+├── dockerfile              # Docker configuration with Ollama
+├── docker-compose.yml      # Docker Compose for easy setup
+├── .dockerignore          # Docker ignore patterns
+├── toolCalling.py         # Main CLI application
+├── web_app.py             # Web interface
+├── config.py              # Configuration settings
+├── requirements.txt       # Dependencies
+├── log.md                 # Log file
+├── README.md              # Documentation
+├── static/                # Web assets (CSS, JS)
 │   ├── css/
 │   └── js/
-├── templates/         # HTML templates
+├── templates/             # HTML templates
 │   └── index.html
-└── tools/             # Tool implementations
-    ├── base.py        # Base tool class
-    ├── date_tools.py  # Date calculation tools
-    ├── math_tools.py  # Mathematical tools
-    └── text_tools.py  # Text processing tools
+└── tools/                 # Tool implementations
+    ├── base.py            # Base tool class
+    ├── date_tools.py      # Date calculation tools
+    ├── math_tools.py      # Mathematical tools
+    └── text_tools.py      # Text processing tools
 ```
 
 ## ✨ Key Features: What Makes This Agent Shine! ✨
@@ -110,9 +111,9 @@ This project demonstrates a pivotal shift in AI – from passive text generators
    pip install -r requirements.txt
    ```
 
-### Option 2: Docker Installation 🐳
+### Option 2: Docker Installation 🐳 (Recommended for Easy Setup)
 
-For a containerized deployment, you can use Docker to run the application:
+For the simplest setup experience, use Docker! This includes everything you need - Python, Ollama, and the Granite model.
 
 1. **Clone the repository**:
    ```sh
@@ -120,30 +121,39 @@ For a containerized deployment, you can use Docker to run the application:
    cd Intelligent-Granite-Agent
    ```
 
-2. **Build the Docker image**:
+2. **One-command setup with Docker Compose** (Easiest):
    ```sh
-   docker build -t granite-llm-app .
+   docker-compose up -d
    ```
+   This will:
+   - Build the application with all dependencies
+   - Install and configure Ollama
+   - Download the Granite 3.3 model
+   - Start both services automatically
 
-3. **Run with Docker**:
+3. **Alternative: Build and run manually**:
    ```sh
-   # Basic run (requires Ollama accessible from container)
-   docker run -p 12000:12000 granite-llm-app
+   # Build the image (includes Ollama installation)
+   docker build -t granite-llm-app .
    
-   # Run with custom port
-   docker run -p 8080:12000 -e PORT=12000 granite-llm-app
-   
-   # Run with network access to host Ollama
-   docker run --network host granite-llm-app
+   # Run the container
+   docker run -d -p 12000:12000 -p 11434:11434 --name granite-agent granite-llm-app
    ```
 
 4. **Access the application**:
-   Open your browser and navigate to `http://localhost:12000` (or your custom port)
+   - Web Interface: `http://localhost:12000`
+   - Ollama API: `http://localhost:11434` (if needed)
 
-**Note for Docker users**: The containerized version requires Ollama to be accessible. You can either:
-- Install Ollama on your host system and use `--network host` 
-- Set up Ollama in a separate container and link them
-- Configure the application to connect to an external Ollama instance
+5. **Check status**:
+   ```sh
+   # View logs
+   docker-compose logs -f
+   
+   # Check if services are running
+   docker-compose ps
+   ```
+
+**That's it!** No need to install Ollama separately or configure anything. The Docker setup handles everything automatically.
 
 ## Usage
 
@@ -195,22 +205,33 @@ For a containerized deployment, you can use Docker to run the application:
 
 ### Docker Usage
 
-If you're using the Docker version:
+If you're using the Docker version (recommended):
 
-1. **Access the application**:
-   Navigate to `http://localhost:12000` (or your mapped port)
-
-2. **Monitor the container**:
+1. **Quick start**:
    ```sh
-   # Check container status
-   docker ps
-   
-   # View logs
-   docker logs <container_id>
-   
-   # Stop the container
-   docker stop <container_id>
+   docker-compose up -d
    ```
+
+2. **Access the application**:
+   Navigate to `http://localhost:12000`
+
+3. **Monitor and manage**:
+   ```sh
+   # View real-time logs
+   docker-compose logs -f
+   
+   # Stop the services
+   docker-compose down
+   
+   # Restart services
+   docker-compose restart
+   
+   # Check service status
+   docker-compose ps
+   ```
+
+4. **First-time setup note**:
+   The first run will take a few minutes as it downloads the Granite 3.3 model (~2GB). Subsequent starts will be much faster.
 
 ## Requirements
 
@@ -271,9 +292,11 @@ The logging system helps you understand exactly how the AI agent processes reque
    - Kill existing processes using the port
 
 3. **Docker Issues**:
-   - Ensure Docker is running
-   - For Ollama access from container, use `--network host` or configure networking
-   - Check container logs: `docker logs <container_id>`
+   - Ensure Docker is running and has sufficient resources (4GB+ RAM recommended)
+   - First startup takes time to download the Granite model
+   - Check both services: `docker-compose ps`
+   - View detailed logs: `docker-compose logs -f`
+   - If model download fails, restart: `docker-compose restart`
 
 4. **Model Not Found**:
    - Pull the required model: `ollama pull granite3.3`
