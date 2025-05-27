@@ -42,8 +42,9 @@ ollama serve &\n\
 echo "Waiting for Ollama to start..."\n\
 sleep 10\n\
 \n\
-# Pull the required model\n\
-echo "Pulling granite3.3 model..."\n\
+# Pull the required model (granite3.3 ~4.9GB download)\n\
+echo "Downloading granite3.3 model (~4.9GB)..."\n\
+echo "Note: This will be slower on CPU-only systems"\n\
 ollama pull granite3.3\n\
 \n\
 # Start the Flask application\n\
@@ -59,7 +60,7 @@ RUN adduser --disabled-password --gecos '' appuser && \
 EXPOSE 12000 11434
 
 # Health check for both services
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=180s --retries=3 \
     CMD curl -f http://localhost:12000/ && curl -f http://localhost:11434/api/tags || exit 1
 
 # Command to run both Ollama and the application

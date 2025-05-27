@@ -115,6 +115,25 @@ This project demonstrates a pivotal shift in AI – from passive text generators
 
 For the simplest setup experience, use Docker! This includes everything you need - Python, Ollama, and the Granite model.
 
+#### ⚠️ **System Requirements & Performance Notes**
+
+**Model Information:**
+- **Granite 3.3 Model Size**: ~4.9GB download
+- **RAM Requirements**: Minimum 6GB, Recommended 12GB+
+- **Storage**: ~6GB free space for model and container
+
+**Performance Considerations:**
+- **🚀 With GPU**: Fast inference (~1-2 seconds per response)
+- **🐌 CPU Only**: Slower but functional (~10-30 seconds per response)
+- **💡 Note**: The application will work on CPU-only systems but responses will be significantly slower
+
+**GPU Support (Optional but Recommended):**
+- NVIDIA GPUs with CUDA support provide much faster performance
+- AMD GPUs are not currently supported by Ollama
+- To enable GPU support, see the GPU configuration section below
+
+#### Installation Steps:
+
 1. **Clone the repository**:
    ```sh
    git clone https://github.com/daruoktab/Intelligent-Granite-Agent.git
@@ -124,27 +143,34 @@ For the simplest setup experience, use Docker! This includes everything you need
 2. **One-command setup with Docker Compose** (Easiest):
    ```sh
    docker-compose up -d
-   ```
-   This will:
+   ```   This will:
    - Build the application with all dependencies
    - Install and configure Ollama
-   - Download the Granite 3.3 model
+   - Download the Granite 3.3 model (~4.9GB - be patient!)
    - Start both services automatically
 
-3. **Alternative: Build and run manually**:
+3. **For GPU support** (NVIDIA only):
+   - Install [NVIDIA Docker support](https://github.com/NVIDIA/nvidia-docker)
+   - Uncomment the GPU lines in `docker-compose.yml`
+   - Run: `docker-compose up -d`
+
+4. **Alternative: Build and run manually**:
    ```sh
    # Build the image (includes Ollama installation)
    docker build -t granite-llm-app .
    
-   # Run the container
+   # Run CPU-only
    docker run -d -p 12000:12000 -p 11434:11434 --name granite-agent granite-llm-app
+   
+   # Run with GPU support (NVIDIA)
+   docker run -d -p 12000:12000 -p 11434:11434 --gpus all --name granite-agent granite-llm-app
    ```
 
-4. **Access the application**:
+5. **Access the application**:
    - Web Interface: `http://localhost:12000`
    - Ollama API: `http://localhost:11434` (if needed)
 
-5. **Check status**:
+6. **Check status**:
    ```sh
    # View logs
    docker-compose logs -f
@@ -153,7 +179,7 @@ For the simplest setup experience, use Docker! This includes everything you need
    docker-compose ps
    ```
 
-**That's it!** No need to install Ollama separately or configure anything. The Docker setup handles everything automatically.
+**⏱️ First Run Notice**: The initial startup takes 5-10 minutes to download the model (~4.9GB). Subsequent starts are much faster (under 30 seconds).
 
 ## Usage
 
@@ -231,13 +257,36 @@ If you're using the Docker version (recommended):
    ```
 
 4. **First-time setup note**:
-   The first run will take a few minutes as it downloads the Granite 3.3 model (~2GB). Subsequent starts will be much faster.
+   The first run will take 5-10 minutes as it downloads the Granite 3.3 model (~4.9GB). Subsequent starts will be much faster.
+
+5. **Performance expectations**:
+   - **With GPU**: Responses in 1-3 seconds
+   - **CPU only**: Responses in 10-30 seconds (still fully functional!)
+   - Monitor resource usage: `docker stats`
 
 ## Requirements
 
 - Python 3.8+
 - Ollama (for local LLM hosting)
 - Docker (optional, for containerized deployment)
+
+### System Requirements for Optimal Performance
+
+**Minimum Requirements (CPU-only):**
+- 6GB RAM (12GB recommended)
+- 6GB free disk space
+- Any modern CPU (will be slow but functional)
+
+**Recommended Setup (GPU-accelerated):**
+- 12GB+ RAM
+- NVIDIA GPU with 6GB+ VRAM
+- NVIDIA drivers and Docker GPU support
+- 6GB free disk space
+
+**Model Details:**
+- **Granite 3.3**: ~4.9GB model size
+- **Performance**: GPU provides 10-20x faster inference than CPU
+- **Compatibility**: Works on both ARM and x86 architectures
 
 ### Python Dependencies
 - `ollama` - Interface with Ollama for LLM interactions
@@ -278,6 +327,42 @@ Logs are written to `log.md` in a markdown-friendly format. This includes:
 
 The logging system helps you understand exactly how the AI agent processes requests and interacts with tools.
 
+## GPU Configuration (Optional but Recommended) 🚀
+
+### Why Use GPU?
+- **10-20x faster inference** compared to CPU
+- Responses in 1-3 seconds instead of 10-30 seconds
+- Better user experience for interactive use
+
+### NVIDIA GPU Setup
+
+1. **Install NVIDIA Docker support**:
+   ```sh
+   # For Ubuntu/Debian
+   distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+   curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+   curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+   sudo apt-get update && sudo apt-get install -y nvidia-docker2
+   sudo systemctl restart docker
+   
+   # For Windows with WSL2
+   # Install NVIDIA drivers for WSL2 from NVIDIA website
+   ```
+
+2. **Enable GPU in docker-compose.yml**:
+   Uncomment the GPU configuration lines in the file
+
+3. **Verify GPU access**:
+   ```sh
+   docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+   ```
+
+### CPU-Only Setup (Default)
+- No additional configuration needed
+- Works out of the box on any system
+- Slower but fully functional
+- Perfect for testing and development
+
 ## Troubleshooting
 
 ### Common Issues
@@ -292,11 +377,19 @@ The logging system helps you understand exactly how the AI agent processes reque
    - Kill existing processes using the port
 
 3. **Docker Issues**:
-   - Ensure Docker is running and has sufficient resources (4GB+ RAM recommended)
-   - First startup takes time to download the Granite model
+   - Ensure Docker has sufficient resources (6GB+ RAM recommended)
+   - First startup takes time to download the Granite model (~4.9GB)
+   - For slow responses, consider GPU acceleration if available
    - Check both services: `docker-compose ps`
    - View detailed logs: `docker-compose logs -f`
    - If model download fails, restart: `docker-compose restart`
+   - Monitor resource usage: `docker stats`
+
+4. **Performance Issues**:
+   - **Slow responses on CPU**: This is normal - consider GPU setup for faster inference
+   - **Out of memory**: Increase Docker memory allocation or reduce system load (model needs ~6GB)
+   - **Model download stuck**: Check internet connection and disk space (~4.9GB needed)
+   - **High CPU usage**: Expected during inference on CPU-only systems
 
 4. **Model Not Found**:
    - Pull the required model: `ollama pull granite3.3`
