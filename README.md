@@ -20,17 +20,24 @@ This project demonstrates a pivotal shift in AI – from passive text generators
 ## Project Structure
 
 ```
-├── toolCalling.py      # Main CLI application
-├── web_app.py          # Web interface
-├── config.py           # Configuration settings
-├── requirements.txt    # Dependencies
-├── log.md              # Log file
-├── README.md           # Documentation
-└── tools/              # Tool implementations
-    ├── base.py         # Base tool class
-    ├── date_tools.py   # Date calculation tools
-    ├── math_tools.py   # Mathematical tools
-    └── text_tools.py   # Text processing tools
+├── dockerfile          # Docker configuration
+├── .dockerignore      # Docker ignore patterns
+├── toolCalling.py     # Main CLI application
+├── web_app.py         # Web interface
+├── config.py          # Configuration settings
+├── requirements.txt   # Dependencies
+├── log.md             # Log file
+├── README.md          # Documentation
+├── static/            # Web assets (CSS, JS)
+│   ├── css/
+│   └── js/
+├── templates/         # HTML templates
+│   └── index.html
+└── tools/             # Tool implementations
+    ├── base.py        # Base tool class
+    ├── date_tools.py  # Date calculation tools
+    ├── math_tools.py  # Mathematical tools
+    └── text_tools.py  # Text processing tools
 ```
 
 ## ✨ Key Features: What Makes This Agent Shine! ✨
@@ -43,6 +50,7 @@ This project demonstrates a pivotal shift in AI – from passive text generators
 -   🔍 **Transparent Insights**: The web UI peels back the curtain, showing exactly which tools were used, with what arguments, and their results – a fantastic way to see the agent's "thinking" process!
 -   🔒 **Local & Private**: Powered by Ollama, the entire system, including the LLM, runs locally on your machine. This means your data stays private, and you have full control over the environment.
 -   📝 **Detailed Logging**: Every step, every tool call, every result meticulously logged for easy debugging and deeper understanding.
+-   🐳 **Docker Ready**: Containerized deployment option for easy setup and consistent environments across different systems.
 
 ## Tools
 
@@ -67,6 +75,8 @@ This project demonstrates a pivotal shift in AI – from passive text generators
 
 ## Installation
 
+### Option 1: Local Installation
+
 1. **Clone the repository**:
    ```sh
    git clone https://github.com/daruoktab/Intelligent-Granite-Agent.git
@@ -86,10 +96,54 @@ This project demonstrates a pivotal shift in AI – from passive text generators
    ```
    (This model `granite3.3` is set as the `DEFAULT_MODEL` in `config.py`.)
 
-4. **Install Python dependencies**:
+4. **Create and activate a virtual environment** (recommended):
+   ```sh
+   python -m venv venv
+   # On Windows
+   venv\Scripts\activate
+   # On macOS/Linux
+   source venv/bin/activate
+   ```
+
+5. **Install Python dependencies**:
    ```sh
    pip install -r requirements.txt
    ```
+
+### Option 2: Docker Installation 🐳
+
+For a containerized deployment, you can use Docker to run the application:
+
+1. **Clone the repository**:
+   ```sh
+   git clone https://github.com/daruoktab/Intelligent-Granite-Agent.git
+   cd Intelligent-Granite-Agent
+   ```
+
+2. **Build the Docker image**:
+   ```sh
+   docker build -t granite-llm-app .
+   ```
+
+3. **Run with Docker**:
+   ```sh
+   # Basic run (requires Ollama accessible from container)
+   docker run -p 12000:12000 granite-llm-app
+   
+   # Run with custom port
+   docker run -p 8080:12000 -e PORT=12000 granite-llm-app
+   
+   # Run with network access to host Ollama
+   docker run --network host granite-llm-app
+   ```
+
+4. **Access the application**:
+   Open your browser and navigate to `http://localhost:12000` (or your custom port)
+
+**Note for Docker users**: The containerized version requires Ollama to be accessible. You can either:
+- Install Ollama on your host system and use `--network host` 
+- Set up Ollama in a separate container and link them
+- Configure the application to connect to an external Ollama instance
 
 ## Usage
 
@@ -100,22 +154,24 @@ This project demonstrates a pivotal shift in AI – from passive text generators
    python toolCalling.py
    ```
 
-2. **Enter your prompt**:
-   - For date calculations:
-     - "What date will it be X days/months/years from today?"
-     - "What date was X days/months/years ago?"
-     - "Days between date1 and date2"
-     - "What is the current date?"
-     - "What time is it?"
+2. **Enter your prompt** (examples):
+   - **Date calculations**:
+     - "What date will it be 30 days from today?"
+     - "What date was 2 months ago?"
+     - "How many days between January 1, 2024 and March 15, 2024?"
+     - "What is the current date and time?"
      - "What day of the week is it?"
-   - For math calculations:
+   
+   - **Math calculations**:
      - "What is 2 + 2?"
      - "Calculate 15% of 200"
      - "What is the square root of 144?"
-   - For text processing:
-     - "Count the words in this text."
-     - "Analyze this paragraph for me."
-     - "Convert this text to uppercase."
+     - "Solve: (5 + 3) * 2 - 4"
+   
+   - **Text processing**:
+     - "Count the words in this text: 'The quick brown fox jumps over the lazy dog'"
+     - "Analyze this paragraph for character and word statistics"
+     - "Convert 'hello world' to uppercase"
      - "How many times does 'the' appear in 'the quick brown fox jumps over the lazy dog'?"
 
 3. **View the results**:
@@ -131,38 +187,98 @@ This project demonstrates a pivotal shift in AI – from passive text generators
 2. **Open your browser**:
    Navigate to `http://localhost:12000` (or the port specified in your environment)
 
-3. **Enter prompts and view results**:
-   The web interface will show both the response and which tools were used to generate it.
+3. **Interactive Features**:
+   - Modern, responsive web interface with dark mode support 🌙
+   - Real-time tool usage visualization
+   - Chat-like interaction with the AI agent
+   - Detailed breakdowns showing which tools were called and their results
 
-## Configuration
+### Docker Usage
 
-Edit `config.py` to customize:
-- Default LLM model
-- Logging settings
-- Enabled tools
+If you're using the Docker version:
 
-## Logging
+1. **Access the application**:
+   Navigate to `http://localhost:12000` (or your mapped port)
 
-Logs are written to `log.md` in a markdown-friendly format. This includes tool arguments, execution results, and any errors encountered.
+2. **Monitor the container**:
+   ```sh
+   # Check container status
+   docker ps
+   
+   # View logs
+   docker logs <container_id>
+   
+   # Stop the container
+   docker stop <container_id>
+   ```
 
 ## Requirements
 
 - Python 3.8+
-- ollama library
-- flask (for web interface)
-- pydantic
+- Ollama (for local LLM hosting)
+- Docker (optional, for containerized deployment)
 
-## Install all dependencies with:
-**Create and activate a virtual environment** (recommended):
-```sh
-python -m venv venv
-venv\Scripts\activate
-```
+### Python Dependencies
+- `ollama` - Interface with Ollama for LLM interactions
+- `flask` - Web framework for the web interface
+- `pydantic` - Data validation and settings management
 
-**Install Python dependencies**:
-```sh
-pip install -r requirements.txt
+## Configuration
+
+Edit `config.py` to customize:
+- **Default LLM model**: Change the `DEFAULT_MODEL` variable
+- **Logging settings**: Modify log file path and level
+- **Enabled tools**: Add or remove tools from the `ENABLED_TOOLS` list
+- **Port settings**: Adjust the default port for the web interface
+
+Example configuration:
+```python
+# Model configuration
+DEFAULT_MODEL = "granite3.3"  # or "llama2", "codellama", etc.
+
+# Logging configuration
+LOG_FILE = "log.md"
+LOG_LEVEL = "DEBUG"
+
+# Tool configuration
+ENABLED_TOOLS = [
+    "DateCalculator",
+    "MathEvaluator", 
+    "TextAnalyzer"
+]
 ```
+## Logging
+
+Logs are written to `log.md` in a markdown-friendly format. This includes:
+- Tool function calls with arguments
+- Execution results and outputs
+- Error messages and debugging information
+- Timestamps for all interactions
+
+The logging system helps you understand exactly how the AI agent processes requests and interacts with tools.
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Ollama Connection Error**:
+   - Ensure Ollama is installed and running
+   - Verify the model is pulled: `ollama pull granite3.3`
+   - Check if Ollama is accessible on the default port (11434)
+
+2. **Port Already in Use**:
+   - Change the port in `web_app.py` or set the `PORT` environment variable
+   - Kill existing processes using the port
+
+3. **Docker Issues**:
+   - Ensure Docker is running
+   - For Ollama access from container, use `--network host` or configure networking
+   - Check container logs: `docker logs <container_id>`
+
+4. **Model Not Found**:
+   - Pull the required model: `ollama pull granite3.3`
+   - Update `config.py` with a different model if needed
+
 ## Future Enhancements
 -   **Tool Expansion**: Add more tools for diverse functionalities (e.g., web scraping, file manipulation).
 - **Image Support**: Integrate image processing tools for OCR, image analysis, etc.
