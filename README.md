@@ -119,7 +119,7 @@ For the simplest setup experience, use Docker! This includes everything you need
 
 **Model Information:**
 - **Granite 3.3 Model Size**: ~4.9GB download
-- **RAM Requirements**: Minimum 6GB, Recommended 12GB+
+- **RAM Requirements**: Minimum 8GB, Recommended 12GB+
 - **Storage**: ~6GB free space for model and container
 
 **Performance Considerations:**
