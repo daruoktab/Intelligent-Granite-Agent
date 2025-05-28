@@ -395,6 +395,12 @@ The logging system helps you understand exactly how the AI agent processes reque
    - Pull the required model: `ollama pull granite3.3`
    - Update `config.py` with a different model if needed
 
+## Demo
+
+![Demo](demo.gif)
+
+*This demo showcases the key features and functionality of the Intelligent Granite Agent.*
+
 ## Future Enhancements
 -   **Tool Expansion**: Add more tools for diverse functionalities (e.g., web scraping, file manipulation).
 - **Image Support**: Integrate image processing tools for OCR, image analysis, etc.
